@@ -1,5 +1,5 @@
 // TODO Add key controls
-//      * Enter: Shoudl select happen if branch is deepest descendent?
+//      * Enter: Should select happen if branch is deepest descendent?
 //      * Shift+Enter: multiple select
 
 // TODO add third state to checkbox to show children selected
@@ -54,11 +54,11 @@ function branchDirective($parse, $document, $mdUtil, $filter, $$mdTree, $mdConst
       var isFilterOpen = false;
       if (isOpen) { startWatching(); }
 
-      // standard angular filter wrapped so we can determian if the parent should be opened for closed
+      // standard angular filter wrapped so we can determine if the parent should be opened or closed
       scope.$mdBranchFilter = function (value) {
         var filtered = $filter('filter')(value);
 
-        // open branches if filter string is greater then 2 and items have been found
+        // open branches if filter string is greater than 2 and items have been found
         if (filtered && filtered.length > 2) {
           isFilterOpen = true;
           blocks.forEach(function (block) {
@@ -225,7 +225,7 @@ function branchDirective($parse, $document, $mdUtil, $filter, $$mdTree, $mdConst
       }
 
 
-      // upate open state
+      // update open state
       // disconnect/reconnect scopes
       // start watching for open items
       function updateState($scope, index) {
@@ -236,13 +236,13 @@ function branchDirective($parse, $document, $mdUtil, $filter, $$mdTree, $mdConst
         $mdUtil.reconnectScope($scope);
         element.toggleClass('md-open', item.$$isOpen);
 
-        // wait till next digest to change state so we do not get into an ifinite loop
+        // wait till next digest to change state so we do not get into an infinite loop
         $mdUtil.nextTick(function () {
           // if open then watch the data
           if (item.$$isOpen) {
             $scope.startWatching();
 
-          // sconnect scopes that are closed
+          // disconnect scopes that are closed
           } else {
             $mdUtil.disconnectScope($scope);
           }
@@ -268,7 +268,7 @@ function branchDirective($parse, $document, $mdUtil, $filter, $$mdTree, $mdConst
           return pooledBlocks.pop();
         }
 
-        // create new bloc
+        // create new block
         var block;
         transclude(function(clone, scope) {
           block = {
@@ -335,7 +335,7 @@ function branchDirective($parse, $document, $mdUtil, $filter, $$mdTree, $mdConst
         }
       }
 
-      // recusivly find next branch
+      // recursively find next branch
       function focusNext(branchElement) {
         branchElement = angular.element(branchElement);
         var next;
@@ -358,7 +358,7 @@ function branchDirective($parse, $document, $mdUtil, $filter, $$mdTree, $mdConst
         if (next && next.length) { next.focus(); }
       }
 
-      // recusivly find previous branch
+      // recursively find previous branch
       function focusPrevious(branchElement) {
         branchElement = angular.element(branchElement);
         var previous = branchElement[0].previousElementSibling;
